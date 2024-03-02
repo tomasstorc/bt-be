@@ -12,13 +12,16 @@ def lambda_handler(event, context):
         connection = oracledb.connect(user=user, password=pw, dsn=connection_string)
         data = []
         with connection.cursor() as cursor:
-            data = cursor.execute('SELECT * FROM ADMIN.EMPLOYEES;')
+            for row in cursor.execute('SELECT * FROM ADMIN.EMPLOYEES;'):
+                data.append(row)
         return {
             'statusCode': 200,
-            'body': json.dumps({"status": "success", "time": f"{time.time() - start}", "data": data})
+            'body': json.dumps({"status": "success", "time": f"{time.time() - start}", "data": json.dumps(data,sort_keys=True, default=str)},sort_keys=True, default=str)
+
         }
     except Exception as e:
         return {
             'statusCode': 400,
-            'body': json.dumps({"status": "failed", "time": f"{time.time() - start}"})
+            'body': json.dumps({"status": "success", "time": f"{time.time() - start}"},sort_keys=True, default=str)
+
         }
