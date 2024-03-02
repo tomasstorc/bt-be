@@ -11,7 +11,7 @@ def lambda_handler(event, context):
         connection_string = os.environ['TNS']
         connection = oracledb.connect(user=user, password=pw, dsn=connection_string)
         with connection.cursor() as cursor:
-            for row in cursor.execute('select city from locations'):
+            for row in cursor.execute('SELECT * FROM ADMIN.EMPLOYYES;'):
                 print(row)
         return {
             'statusCode': 200,
@@ -20,5 +20,5 @@ def lambda_handler(event, context):
     except Exception as e:
         return {
             'statusCode': 400,
-            'body': json.dumps({"status": "failed", "time": f"{time.time() - start}", "error": e})
+            'body': json.dumps({"status": "failed", "time": f"{time.time() - start}"})
         }
