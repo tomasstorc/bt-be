@@ -16,7 +16,7 @@ def lambda_handler(event, context):
                 data.append(row)
         return {
             'statusCode': 200,
-            'body': json.dumps({"status": "success", "time": f"{time.time() - start}", "data": json.dumps(data,sort_keys=True, default=str)},sort_keys=True, default=str)
+            'body': json.dumps({"status": "success", "time": f"{time.time() - start}", "data": data},sort_keys=True)
 
         }
     except Exception as e:
