@@ -13,7 +13,7 @@ def lambda_handler(event, context):
         data = []
         with connection.cursor() as cursor:
             for row in cursor.execute('SELECT * FROM ADMIN.EMPLOYEES'):
-                data.append(row)
+                data.append({"id": row[0], "first_name": row[1], "last_name": row[2], "email": row[3]})
         return {
             'statusCode': 200,
             'body': json.dumps({"status": "success", "time": f"{time.time() - start}", "data": data},sort_keys=True)
