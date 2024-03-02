@@ -1,11 +1,15 @@
 import json
 import oracledb
 import time
+import os
 
 def lambda_handler(event, context):
     start = time.time()
     try:
-        connection = oracledb.connect(user='scott', password='mypw', dsn='localhost/oraclepdb1')
+        user = os.environ['USER']
+        pw = os.environ['PW']
+        connection_string = os.environ['TNS']
+        connection = oracledb.connect(user=user, password=pw, dsn=connection_string)
         with connection.cursor() as cursor:
             for row in cursor.execute('select city from locations'):
                 print(row)
