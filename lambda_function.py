@@ -12,7 +12,7 @@ def lambda_handler(event, context):
         connection = oracledb.connect(user=user, password=pw, dsn=connection_string)
         data = []
         with connection.cursor() as cursor:
-            for row in cursor.execute('SELECT * FROM ADMIN.EMPLOYEES;'):
+            for row in cursor.execute('SELECT * FROM ADMIN.EMPLOYEES'):
                 data.append(row)
         return {
             'statusCode': 200,
