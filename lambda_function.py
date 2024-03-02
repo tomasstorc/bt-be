@@ -12,7 +12,7 @@ def lambda_handler(event, context):
         connection = oracledb.connect(user=user, password=pw, dsn=connection_string)
         data = []
         with connection.cursor() as cursor:
-            data = cursor.execute('SELECT * FROM ADMIN.EMPLOYYES;'):
+            data = cursor.execute('SELECT * FROM ADMIN.EMPLOYEES;'):
         return {
             'statusCode': 200,
             'body': json.dumps({"status": "success", "time": f"{time.time() - start}", "data": data})
